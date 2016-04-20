@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location="E:\DevTools\mysql-connector-java-5.1.0-bin.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/jymanager?useUnicode=true&amp;characterEncoding=UTF-8"
+            userId="root" password="abcd1234" />
+          
+<!--         <javaModelGenerator targetPackage="com.demo.model" -->
+<!--             targetProject="E:\workspace\JYmanager\src\main\java" /> -->
+<!--         <sqlMapGenerator targetPackage="com.demo.persistence" -->
+<!--             targetProject="E:\workspace\JYmanager\src\main\resources" /> -->
+<!--         <javaClientGenerator targetPackage="com.demo.dao" -->
+<!--             targetProject="E:\workspace\JYmanager\src\main\java" type="XMLMAPPER" /> -->
+            
+            
+        <javaModelGenerator targetPackage="com.demo.model" targetProject="src\main\java">  
+            <property name="enableSubPackages" value="true"/>  
+            <property name="trimStrings" value="true"/>  
+        </javaModelGenerator>  
+        <!-- 生成映射文件的包名和位置-->  
+        <sqlMapGenerator targetPackage="com.demo.mapping" targetProject="src\main\resources\mapper">  
+            <property name="enableSubPackages" value="true"/>  
+        </sqlMapGenerator>  
+        <!-- 生成DAO的包名和位置-->  
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.demo.dao" targetProject="src\main\java">  
+            <property name="enableSubPackages" value="true"/>  
+        </javaClientGenerator>  
+            
+            
+        <table schema="jymanager" tableName="user" />
+        <table schema="jymanager" tableName="t_ys" />
+    </context>
+</generatorConfiguration>

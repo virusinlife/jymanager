@@ -1,0 +1,18 @@
+CREATE TABLE `jymanager`.`t_ys` (
+  `id` VARCHAR(45) NOT NULL COMMENT '序号',
+  `ys_type` VARCHAR(20) NOT NULL COMMENT '维护费\n项目费\n会议费\n研发费',
+  `ys_name` VARCHAR(100) NOT NULL COMMENT '预算科目',
+  `ys_subname` VARCHAR(100) NOT NULL COMMENT '预算二级科目',
+  `item_name` VARCHAR(100) NOT NULL COMMENT '预算子项名称',
+  `item_year` VARCHAR(45) NOT NULL COMMENT '所属年份',
+  `item_type` VARCHAR(45) NOT NULL COMMENT '硬件设备\n软件产品\n软件外包\n工程配套\n硬件维保\n产品维保\n开发维保\n外援服务',
+  `item_buy_way` VARCHAR(45) NOT NULL COMMENT '集中采购\n单一来源\n比选采购\n已有框架',
+  `item_tax` INT NOT NULL DEFAULT 0 COMMENT '税率 Value%',
+  `item_cur_amount` DECIMAL(20,2) NOT NULL DEFAULT 0 COMMENT '预算当年金额 ',
+  `item_next_amount` DECIMAL(20,2) NOT NULL DEFAULT 0 COMMENT '预算跨年金额 ',
+  `item_own_user` VARCHAR(45) NOT NULL COMMENT '预算责任人 ',
+  `item_input_datetime` DATETIME NOT NULL COMMENT '输入时间 ',
+  `item_input_user` VARCHAR(45) NOT NULL COMMENT '输入用户 ',
+  `isvalid` INT NOT NULL DEFAULT 1 COMMENT '0 失效     1 生效  ',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC));
