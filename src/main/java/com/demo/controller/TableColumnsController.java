@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.demo.model.TMetadata;
 import com.demo.model.TableColumns;
 import com.demo.service.TableColumnsService;
  
@@ -26,5 +28,11 @@ public class TableColumnsController {
 		return list;
 	}  
     
+    @RequestMapping(value = "getTableMetadatasByTableName.do" )  
+	public @ResponseBody List<TMetadata> getTMetadataByid(@RequestParam("id") String id) throws Exception{
+		//获取当前页的用户列表的数据
+		List<TMetadata> list = tableColumnsService.getTableMetadatasByID(id);
+		return list;
+	}  
     
 }

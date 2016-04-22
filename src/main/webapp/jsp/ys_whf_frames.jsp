@@ -22,16 +22,11 @@
         <a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
     </div>  
     
-    <div id="ys_detail_dlg" style="">
-    
-	    <form id="ys_detail_form" method="post">
+    <div id="ys_detail_dlg">
 		    <div>
-				<label for="name">Name:</label>
-				<input class="easyui-validatebox" type="text" name="name" data-options="required:true" />
-		    </div>
-		    
-		    
-		</form>
+				<label for="ys_type">type:</label>
+				<input class="easyui-combobox" id="ys_detail_ys_type"/>
+		    </div>		    
     
     </div>
     
@@ -40,8 +35,16 @@
     
     
     <script type="text/javascript">
-    initdlg_list('#yslist', 't_ys', 'getAllTYs.do','#tb');
-    initdlg_paging('#yslist');
+    $(document).ready(function(){
+	    
+	    //hidedlg('#ys_detail_dlg');
+	    
+	    
+	    init_list('#yslist', 't_ys', 'getAllTYs.do','#tb');
+	    init_list_paging('#yslist');    
+	    init_combobox_option('#ys_detail_ys_type', 'ys_type', true,false);
+	    init_dlg('#ys_detail_dlg');
+    });
     </script>
     
 </body>
