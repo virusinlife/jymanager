@@ -16,14 +16,32 @@
 </head>
 <body>
 	
-	<table id="userlist"></table>
+	<table id="yslist"></table>
 	
     <div id="tb" style="padding:2px 5px;">
         <a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
     </div>  
+    
+    <div id="ys_detail_dlg" style="">
+    
+	    <form id="ys_detail_form" method="post">
+		    <div>
+				<label for="name">Name:</label>
+				<input class="easyui-validatebox" type="text" name="name" data-options="required:true" />
+		    </div>
+		    
+		    
+		</form>
+    
+    </div>
+    
+    
+    
+    
+    
     <script type="text/javascript">
-    	initdlg_userlist('#userlist', 'selectByExample.do','#tb');
-    	initpaging('#userlist');
+    initdlg_list('#yslist', 't_ys', 'getAllTYs.do','#tb');
+    initdlg_paging('#yslist');
     </script>
     
 </body>

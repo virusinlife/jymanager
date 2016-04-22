@@ -30,7 +30,9 @@
         </javaClientGenerator>  
             
             
+        <table schema="jymanager" tableName="t_ys" >
+        	<property name="useActualColumnNames" value="true" />
+        </table>
         <table schema="jymanager" tableName="user" />
-        <table schema="jymanager" tableName="t_ys" />
     </context>
 </generatorConfiguration>
