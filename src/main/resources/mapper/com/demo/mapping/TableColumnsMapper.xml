@@ -39,7 +39,7 @@
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.demo.model.TableColumnsExample" >
 
     select
-    column_name as field,column_name as title, 
+    column_name as field,column_comment as title, 
     CASE data_type
             WHEN 'varchar' THEN 200
             ELSE 100

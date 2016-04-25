@@ -1,14 +1,15 @@
 
 
-function init_dlg(dlg)
+
+
+function init_dlg(dlg, size)
 {
 	//$(dlg).show("slow");
 	
-	
 	$( dlg ).dialog({
-	      autoOpen: true,
-	      width:300,
-		  height:400,
+	      autoOpen: false,
+	      width:size.width,
+		  height:size.height,
 	      show: {
 	        effect: "blind",
 	        duration: 200
@@ -20,6 +21,14 @@ function init_dlg(dlg)
 	    });
 }
 
+function show_dlg(dlg)
+{
+	$( dlg ).dialog("open");
+}
+function hide_dlg(dlg)
+{
+	$( dlg ).dialog("close");
+}
 
 function init_list(listname, columntype, action, toolbar)
 {
@@ -31,8 +40,12 @@ function init_list(listname, columntype, action, toolbar)
         error: function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest.readyState); }  
     });  
 	
-	var columns_str = $.parseJSON(columns.responseText);
+	var columns_str = [{'field':'ck',title:'',width:20,checkbox:true}];
+		
+	$.parseJSON(columns.responseText).forEach(function(e){columns_str.push(e)});
 
+	
+	
 	var datas = $.ajax({  
         url: action,  
         type: "GET",  
@@ -41,6 +54,8 @@ function init_list(listname, columntype, action, toolbar)
         error: function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest.readyState); }  
     });  
 	var datas_str = $.parseJSON(datas.responseText);
+	
+	console.log(columns_str);
 	
     $(listname).datagrid({
         url:action,
