@@ -60,7 +60,7 @@
 	    init_combobox_option('#ys_detail_item_buy_way', 'item_buy_way', false,false);
 	    init_combobox_option('#ys_detail_isvalid', 'isvalid', false,false);	    
 	    
-	    init_dlg('#ys_detail_dlg', {'width':700, 'height':500});
+	    init_dlg('#ys_detail_dlg', {'width':500, 'height':500});
 	    
 	    
 	    
