@@ -27,7 +27,7 @@
 		</div>
     </div>
     <div data-options="region:'center',title:''" style="padding:5px;background:#eee;">
-		<div id="tt" class="easyui-tabs" style="width:100%;">
+		<div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
 	  
 	    </div>
 	
@@ -37,7 +37,7 @@
 	    
 		function click_whf(url)
 		{
-			var content = '<iframe scrolling="auto" frameborder="0"  src="ys_whf_frames.do" style="width:100%;height:600px"></iframe>';
+			var content = '<iframe scrolling="auto" frameborder="0"  src="ys_whf_frames.do" style="width:100%;height:100%;"></iframe>';
 			$('#tt').tabs('add',{
 	            title: '维护费管理',
 	            content: content,

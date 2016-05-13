@@ -7,6 +7,7 @@ function init_dlg(dlg, size)
 	//$(dlg).show("slow");
 	
 	$( dlg ).dialog({
+		  title:"明细",
 	      autoOpen: false,
 	      width:size.width,
 		  height:size.height,
@@ -29,6 +30,7 @@ function hide_dlg(dlg)
 {
 	$( dlg ).dialog("close");
 }
+
 
 function init_list(listname, columntype, action, toolbar)
 {
@@ -55,7 +57,7 @@ function init_list(listname, columntype, action, toolbar)
     });  
 	var datas_str = $.parseJSON(datas.responseText);
 	
-	console.log(columns_str);
+	//console.log(columns_str);
 	
     $(listname).datagrid({
         url:action,
@@ -100,8 +102,8 @@ function init_combobox_option(cb, optype, needAll, needEmpty)
 	
 	//var types_obj = $.parseJSON(types.responseText);
 	
-	var obj_all  = {"id":"ys_type","title":"全部","value":"_all","decsription":"全部","sortorder":0};
-	var obj_empty  = {"id":"ys_type","title":"无","value":"_empty","decsription":"无","sortorder":0};
+	var obj_all  = {"id":optype+"_all","title":"全部","value":"_all","decsription":"全部","sortorder":0};
+	var obj_empty  = {"id":optype+"_empty","title":"无","value":"_empty","decsription":"无","sortorder":0};
 	
 	var rows = [];
 	

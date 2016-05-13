@@ -44,6 +44,7 @@ INSERT INTO `t_metadata` (`id`, `title`, `value`, `decsription`, `sortorder`) VA
 	('item_buy_way', '公开招标', '公开招标', '公开招标', 00000000003),	
 	('item_buy_way', '单一来源', '单一来源', '单一来源', 00000000004),	
 	('item_buy_way', '已有合同', '已有合同', '已有合同', 00000000005),	
+	('item_type', '软件外包', '软件外包', '软件外包', 00000000001),	
 	('isvalid', '生效', '生效', '生效', 00000000001),	
 	('isvalid', '失效', '失效', '失效', 00000000002),		
 	('default', 'default','default','default', 00000000001);

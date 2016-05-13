@@ -1,5 +1,5 @@
-CREATE TABLE `t_ys` (
-	`id` VARCHAR(45) NOT NULL COMMENT '序号',
+﻿CREATE TABLE `t_ys` (
+	`ys_id` VARCHAR(45) NOT NULL COMMENT '序号',
 	`ys_type` VARCHAR(20) NOT NULL COMMENT '预算类型',
 	`ys_name` VARCHAR(100) NOT NULL COMMENT '预算科目',
 	`ys_subname` VARCHAR(100) NOT NULL COMMENT '预算二级科目',
@@ -13,9 +13,9 @@ CREATE TABLE `t_ys` (
 	`item_own_user` VARCHAR(45) NOT NULL COMMENT '预算责任人 ',
 	`item_input_datetime` DATETIME NOT NULL COMMENT '输入时间 ',
 	`item_input_user` VARCHAR(45) NOT NULL COMMENT '输入用户 ',
-	`isvalid` INT(11) NOT NULL DEFAULT '1' COMMENT '是否生效 ',
-	PRIMARY KEY (`id`),
-	UNIQUE INDEX `id_UNIQUE` (`id`)
+	`isvalid` VARCHAR(10) NOT NULL DEFAULT '生效' COMMENT '是否生效 ',
+	PRIMARY KEY (`ys_id`),
+	UNIQUE INDEX `ys_id_UNIQUE` (`ys_id`)
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
