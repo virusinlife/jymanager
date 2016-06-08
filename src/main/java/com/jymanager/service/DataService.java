@@ -13,5 +13,10 @@ public interface DataService {
 	List<TYs> getAllYSs();
 	List<TYs> getAllYSsByID(String id);	
 	List<TYs> getAllYSsByExample();	
+	int  checkTYsByID(String ID);
+    int insertTYs(TYs record);
+    
+    int updateTYsByPrimaryKey(TYs record);
+	
 	
 }
