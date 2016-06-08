@@ -96,7 +96,7 @@
     		</tr>
     		<tr>
     			<td colspan="2" align="center" >					
-    				<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:ys_add_save();">保存</a>
+    				<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:ys_save();">保存</a>
     			</td>
     		</tr>
     	</table>
@@ -132,6 +132,7 @@
 
 	    
     });
+    var iAddOrEdit = 0;
     function ys_list_init()
     {
 	    init_list('#yslist', 't_ys', 'getAllTYs.do','#tb');
@@ -141,7 +142,7 @@
     }
     function ys_detail_dlg_clear()
     {
-    	$('#ys_detail_dlg input').each(function()
+    	$("#ys_detail_dlg input[id^='ys_detail_']").each(function()
     	{
     		key=$(this);
     		//console.log(key);
@@ -154,7 +155,7 @@
     			key.combobox('setValues', '');
         		//console.log("find combobox");
         	}
-    		else
+    		else if(className.indexOf("validatebox") >= 0)
    			{
     			key.val('');
         		//console.log("find textbox");
@@ -162,20 +163,72 @@
     		//console.log(key+" end");    		
     	});
     }
-    function ys_add_save()
-    {
-    	
-    	
-    	
-    }
+    
     
     function ys_add_init()
     {
+    	iAddOrEdit = 1;
     	ys_detail_dlg_clear();
     	show_dlg('#ys_detail_dlg');
     }
+
+    function ys_save()
+    {
+
+    	var datajson = {};
+    	var tmp;
+    	$("#ys_detail_dlg input[id^='ys_detail_']").each(function()
+    	    	{
+    	    		key=$(this);
+   
+    	    		var className = key.attr("class");
+
+    	    		if(typeof(className) == 'undefined') return ;
+
+     	    		console.log(key.attr("id") + className);
+     	    		
+     	    		var keyrealid = key.attr("id").replace("ys_detail_","");
+     	    		
+    	    		if(className.indexOf("combobox") >= 0)
+    	   			{
+    	    			datajson[keyrealid] = key.combobox('getValues')[0];
+    	    			
+    	        		//console.log("find combobox");
+    	        	}
+    	    		else if(className.indexOf("validatebox") >= 0)
+    	   			{
+    	    			datajson[keyrealid] = key.val();
+    	        		//console.log("find textbox" + key.val());
+    	   			}
+    	    		//console.log(key+" end");    		
+    	    	});
+    	console.log(datajson);
+    	var surl="";
+    	if(iAddOrEdit == 1)
+    	{
+    		surl="insertTYs.do";
+    	}
+    	else
+    	{
+    		surl="updateTYsByID.do";
+    	}    	
+     	var datas = $.ajax({  
+             url: surl,  
+             type: "POST",  
+             data:datajson,
+             datatype: 'json',  
+             cache: false,  
+             error: function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest.readyState); }  
+         });   
+     	console.log(datas);
+     	
+     	
+    	iAddOrEdit = 0;
+    }
+  
     function ys_edit_init()
     {
+    	iAddOrEdit = 2;
     	var row = $('#yslist').datagrid('getSelected');
     	var datas = $.ajax({  
             url: "getTYsByID.do?ID="+row.ys_id,  
@@ -186,12 +239,12 @@
         });
 
     	data=$.parseJSON(datas.responseText)[0];
-    	console.log(datas.responseText);
-    	console.log(data);
+    	//console.log(datas.responseText);
+    	//console.log(data);
     	for (var key in data)
     	{
     		//if(typeof(data[key]) == 'function') continue;
-    		console.log(key+typeof(data[key]));
+    		//console.log(key+typeof(data[key]));
     		var className = $('#ys_detail_'+key).attr("class");
 
     		if(typeof(className) == 'undefined') continue;
@@ -201,7 +254,7 @@
         		$('#ys_detail_'+key).combobox('setValues', data[key]);
         		//console.log("find combobox");
         	}
-    		else
+    		else if(className.indexOf("validatebox") >= 0)
    			{
         		$('#ys_detail_'+key).val(data[key]);
         		//console.log("find textbox");

@@ -2,6 +2,7 @@ package com.jymanager.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,22 @@ public class DataServiceImpl implements DataService{
     public List<TYs> getAllYSsByExample()
     {
     	return tysMapper.selectByExample(new TYsExample());
+    }
+    
+    public int checkTYsByID(String ID)
+    {
+    	TYsExample ex = new TYsExample();
+    	ex.createCriteria().andYs_idEqualTo(ID);    	
+    	return tysMapper.countByExample(ex);    	
+    }
+    
+    public int insertTYs(TYs record)
+    {
+    	return tysMapper.insert(record);
+    }
+    
+    public int updateTYsByPrimaryKey(TYs record)
+    {
+    	return tysMapper.updateByPrimaryKey(record);
     }
 }

@@ -19,10 +19,10 @@ public class MainController {
     }
     
     
-    @RequestMapping(value="ys_whf_frames.do")
+    @RequestMapping(value="ys_main_frames.do")
     public ModelAndView ys_whf_frames(User user){
         ModelAndView mav=new ModelAndView();
-        mav.setViewName("ys_whf_frames");
+        mav.setViewName("ys_main_frames");
         return mav;
     }   
 
