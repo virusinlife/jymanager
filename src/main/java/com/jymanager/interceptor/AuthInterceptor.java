@@ -21,13 +21,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         Method method = handlerMethod.getMethod();
         Auth annotation = method.getAnnotation(Auth.class);
         if (annotation != null) {
-           System.out.println("你遇到了：@Auth");
-           String accessToken = request.getParameter("access_token");
-           System.out.println(accessToken);
+           System.out.println("Auth success !! @Auth");
+           //String accessToken = request.getParameter("access_token");
+           //System.out.println(accessToken);
             /**
              * Do something
              */
-           if(accessToken == null ) return false;
+           //if(accessToken == null ) return false;
+            return true;
         }
         // 没有注解通过拦截
         return true;

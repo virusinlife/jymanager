@@ -1,0 +1,3 @@
+URI 乱码问题
+
+<Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" URIEncoding="UTF-8" /> 注意最后添加的这个 URIEncoding (11个月前)  
