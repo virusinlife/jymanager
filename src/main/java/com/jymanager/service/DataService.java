@@ -18,5 +18,7 @@ public interface DataService {
     
     int updateTYsByPrimaryKey(TYs record);
 	
-	
+    int deleteByPrimaryKey(String ID);
+    
+    List<TYs>  searchTYs(TYs record);
 }

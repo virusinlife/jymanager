@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,10 +9,11 @@
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/color.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<script type="text/javascript" src="js/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/easyui/jquery.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js" charset="UTF-8"></script>
 	
-	<script type="text/javascript" src="js/components.js"></script>
+	<script type="text/javascript" src="js/components.js" charset="UTF-8"></script>
 </head>
 <body style="padding:0px 0px;">
 	
@@ -136,6 +137,7 @@
     function ys_list_init()
     {
 	    init_list('#yslist', 't_ys', 'getAllTYs.do','#tb');
+	    reload_list('#yslist');
 	    //init_list('#yslist', 't_ys', 'getTYsByID.do?ID=YS-201605130925000','#tb');
 	    init_list_paging('#yslist');       	
     	
@@ -218,12 +220,14 @@
              data:datajson,
              datatype: 'json',  
              cache: false,  
-             error: function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest.readyState); }  
+             error: function (XMLHttpRequest, textStatus, errorThrown) { alert("新增或更新记录失败！"); }  
          });   
      	console.log(datas);
      	
      	
     	iAddOrEdit = 0;
+    	hide_dlg('#ys_detail_dlg');
+	    reload_list('#yslist');
     }
   
     function ys_edit_init()
@@ -267,12 +271,47 @@
     }
     function ys_remove()
     {
-    	
+    	var row = $('#yslist').datagrid('getSelected');
+    	var datas = $.ajax({  
+            url: "deleteTYsByID.do?ID="+row.ys_id,  
+            type: "GET",  
+            async: false,  
+            cache: false,  
+            error: function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest.readyState); }  
+        });
+    	reload_list('#yslist');
     }
 
     function ys_search()
     {
-    	
+    	var datajson = {};
+    	$("#tb input[id^='ys_query_']").each(function()
+    	    	{
+    	    		key=$(this);
+   
+    	    		var className = key.attr("class");
+
+    	    		if(typeof(className) == 'undefined') return ;
+
+     	    		console.log(key.attr("id") + className);
+     	    		
+     	    		var keyrealid = key.attr("id").replace("ys_query_","");
+     	    		
+    	    		if(className.indexOf("combobox") >= 0)
+    	   			{
+    	    			datajson[keyrealid] = (key.combobox('getValues')[0]);
+    	    			
+    	        		//console.log("find combobox");
+    	        	}
+    	    		else if(className.indexOf("easyui-textbox") >= 0)
+    	   			{
+    	    			datajson[keyrealid] = (key.val());
+    	        		//console.log("find textbox" + key.val());
+    	   			}
+    	    		//console.log(key+" end");    		
+    	    	});
+    	console.log(datajson);
+    	filter_list('#yslist', 'searchTYs.do', datajson);
     }
     </script>
     

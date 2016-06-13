@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jymanager.model.TYs;
 import com.jymanager.model.TYsExample;
+import com.jymanager.model.TYsExample.Criteria;
 import com.jymanager.model.User;
 import com.jymanager.model.UserExample;
 import com.jymanager.service.DataService;
@@ -63,4 +64,28 @@ public class DataServiceImpl implements DataService{
     {
     	return tysMapper.updateByPrimaryKey(record);
     }
+    
+    public int deleteByPrimaryKey(String ID)
+    {
+    	return tysMapper.deleteByPrimaryKey(ID);
+    }
+    
+    public  List<TYs>  searchTYs(TYs record)
+    {
+    	TYsExample ex = new TYsExample();
+    	Criteria cr = ex.createCriteria();
+    	cr.andYs_idLike("%"+record.getYs_id()+"%");    	
+    	cr.andIsvalidLike("%"+record.getIsvalid()+"%"); 
+    	cr.andItem_buy_wayLike("%"+record.getItem_buy_way()+"%"); 
+    	cr.andItem_nameLike("%"+record.getItem_name()+"%"); 
+    	cr.andItem_own_userLike("%"+record.getItem_own_user()+"%"); 
+    	cr.andItem_typeLike("%"+record.getItem_type()+"%"); 
+    	cr.andItem_yearLike("%"+record.getItem_year()+"%"); 
+    	cr.andYs_nameLike("%"+record.getYs_name()+"%"); 
+    	cr.andYs_subnameLike("%"+record.getYs_subname()+"%"); 
+    	cr.andYs_typeLike("%"+record.getYs_type()+"%");     	
+    	
+    	return tysMapper.selectByExample(ex);
+    }
+    
 }

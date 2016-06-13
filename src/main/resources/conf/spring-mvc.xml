@@ -14,7 +14,15 @@
     
     <!-- 扫描文件（自动注入）,包括DAO层注入Service层，Service层注入Controller层 -->
     <context:component-scan base-package="com.jymanager"/>
+    
+    
+    
     <mvc:annotation-driven />
+    
+    
+    
+    
+    
    <!-- 避免IE在ajax请求时，返回json出现下载 -->
    <bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">     
         <property name="supportedMediaTypes">
@@ -23,6 +31,21 @@
             </list>
         </property>
     </bean>
+
+<!-- 拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+            <mvc:mapping path="/**" />
+            <ref bean="userAccessInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="userAccessInterceptor"
+        class="com.jymanager.interceptor.AuthInterceptor">
+    </bean>
+
+
      
    <!-- 对模型视图添加前后缀 -->
      <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"

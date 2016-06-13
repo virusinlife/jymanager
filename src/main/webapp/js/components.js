@@ -47,7 +47,7 @@ function init_list(listname, columntype, action, toolbar)
 	$.parseJSON(columns.responseText).forEach(function(e){columns_str.push(e)});
 
 	
-	
+	/*
 	var datas = $.ajax({  
         url: action,  
         type: "GET",  
@@ -58,7 +58,9 @@ function init_list(listname, columntype, action, toolbar)
 	var datas_str = $.parseJSON(datas.responseText);
 	
 	//console.log(columns_str);
-	
+    
+    */
+    
     $(listname).datagrid({
         url:action,
         rownumbers:true,
@@ -67,11 +69,24 @@ function init_list(listname, columntype, action, toolbar)
         toolbar:toolbar,
         pagination:true,
         columns:[columns_str]
-    });
-    
-
+    });	
 }
 
+function reload_list(listname)
+{
+	$(listname).datagrid('reload');
+}
+
+function filter_list(listname, action, datajson)
+{
+    //$(listname).datagrid('load',datajson);	
+    
+    
+    $(listname).datagrid({  
+        url:action,  
+        queryParams:datajson
+    });  
+}
 
 function init_list_paging(dg)
 {
