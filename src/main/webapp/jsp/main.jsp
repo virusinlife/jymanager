@@ -16,7 +16,7 @@
     <div data-options="region:'west',title:'功能栏',split:true" style="width:200px;">
 	    <div id="functree" class="easyui-accordion" style="width:100%;">
 		    <div title="预算管理">
-		    	<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="click_whf()" style="width:90px">维护费</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="click_whf()" style="width:90px">预算管理</a>
 		    </div>
 		    <div title="外援管理">
 		    </div>

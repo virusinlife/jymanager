@@ -146,4 +146,84 @@ function init_combobox_option(cb, optype, needAll, needEmpty)
 	return true;
 }
 
+function ExportExcel(columns,datas){//读取表格中每个单元到EXCEL中 
+	try
+	{
+		var oXL; 
+		try 
+		{ 
+			oXL = GetObject("", "Excel.Application"); 
+		} 
+		catch (E) 
+		{ 
+			try 
+			{ 
+				oXL = new ActiveXObject("Excel.Application"); 
+			} 
+			catch (E2) 
+			{ 
+				alert("请确认:\n1.机器上Excel已经安装.\n2.Internet 选项=>安全=>Internet \"对没有标记为安全的ActiveX控件进行初始化和脚本运行，设定为启用\"");
+				return; 
+			} 
+		}		
 
+		var oWB = oXL.Workbooks.Add(); //获取workbook对象 
+		var oSheet = oWB.ActiveSheet; //激活当前sheet 
+		var colrows = columns.length;
+		var datarows = datas.length; //取得表格行数 
+		
+		for (j = 0; j < colrows; j++){ 
+			oSheet.Cells(1, j + 1).value = columns[j]; //赋值 
+		} 	
+		
+		for (i = 0; i < datarows; i++){ 
+			var lenc = datas[i].length; //取得每行的列数 
+			for (j = 0; j < lenc; j++){ 
+				oSheet.Cells(i + 2, j + 1).value = datas[i][j]; //赋值 
+			} 
+		} 
+		oXL.Visible = true; //设置excel可见属性 
+	}
+	catch(e)
+	{
+		alert(e.message);
+	}
+
+}
+
+
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}
+
+function getNowStreamDate() {
+    var date = new Date();
+    var seperator1 = "";
+    var seperator2 = "";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + month + strDate + date.getHours() + date.getMinutes()+ date.getSeconds();
+    return currentdate;
+}

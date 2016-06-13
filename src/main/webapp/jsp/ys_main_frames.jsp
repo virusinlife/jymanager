@@ -22,11 +22,15 @@
     <div id="tb" style="padding:0px 0px;display: none;">
     	<table>
 	    	<tr>
-		    	<td colspan="5">
+		    	<td colspan="4">
 					<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:ys_add_init();">添加</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:ys_edit_init();">修改</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:ys_remove();">删除</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="javascript:ys_search();">查找</a>
+					
+		       	</td>
+		       	<td align="right">
+		       	<a href="#" class="easyui-linkbutton" iconCls="icon-redo" plain="true" onclick="javascript:ys_export();">导出</a>
 		       	</td>
 	       	</tr>
 	       	<tr>
@@ -95,7 +99,15 @@
     		<tr>
 			    <td><label for="ys_detail_isvalid" style="display: inline-block;width:100px;">是否生效:</label><input class="easyui-combobox" id="ys_detail_isvalid" style="width:200px;"/></td>
     		</tr>
+   			<tr>
+			    <td colspan="2" align="left" ><label for="ys_detail_commets" style="display: inline-block;width:100px;">备注说明:</label></td>
+    		</tr>
     		<tr>
+    			<td colspan="2" align="left" >					
+    				 <input class="easyui-textbox" data-options="multiline:true" value="" id="ys_detail_commets" style="width:435px;height:90px">   			
+    			</td>
+    		</tr>
+     		<tr>
     			<td colspan="2" align="center" >					
     				<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:ys_save();">保存</a>
     			</td>
@@ -171,6 +183,7 @@
     {
     	iAddOrEdit = 1;
     	ys_detail_dlg_clear();
+    	$("#ys_detail_ys_id").val("YS-"+getNowStreamDate());
     	show_dlg('#ys_detail_dlg');
     }
 
@@ -313,6 +326,16 @@
     	console.log(datajson);
     	filter_list('#yslist', 'searchTYs.do', datajson);
     }
+    
+    function ys_export()
+    {
+    	console.log($('#yslist').datagrid());
+    	console.log($('#yslist').datagrid("options").columns[0]);
+    	console.log($('#yslist').datagrid("getData"));
+    	
+    	ExportExcel($('#yslist').datagrid("options").columns[0], $('#yslist').datagrid("getData"));
+    }
+    
     </script>
     
 </body>
