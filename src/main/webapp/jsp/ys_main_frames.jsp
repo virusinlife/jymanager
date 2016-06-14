@@ -329,11 +329,34 @@
     
     function ys_export()
     {
-    	console.log($('#yslist').datagrid());
-    	console.log($('#yslist').datagrid("options").columns[0]);
-    	console.log($('#yslist').datagrid("getData"));
+    	var datajson = {};
+    	$("#tb input[id^='ys_query_']").each(function()
+    	    	{
+    	    		key=$(this);
+   
+    	    		var className = key.attr("class");
+
+    	    		if(typeof(className) == 'undefined') return ;
+
+     	    		console.log(key.attr("id") + className);
+     	    		
+     	    		var keyrealid = key.attr("id").replace("ys_query_","");
+     	    		
+    	    		if(className.indexOf("combobox") >= 0)
+    	   			{
+    	    			datajson[keyrealid] = (key.combobox('getValues')[0]);
+    	    			
+    	        		//console.log("find combobox");
+    	        	}
+    	    		else if(className.indexOf("easyui-textbox") >= 0)
+    	   			{
+    	    			datajson[keyrealid] = (key.val());
+    	        		//console.log("find textbox" + key.val());
+    	   			}
+    	    		//console.log(key+" end");    		
+    	    	});
+    	ExportExcel('#yslist', 'exportTYs.do', datajson);
     	
-    	ExportExcel($('#yslist').datagrid("options").columns[0], $('#yslist').datagrid("getData"));
     }
     
     </script>

@@ -21,4 +21,6 @@ public interface DataService {
     int deleteByPrimaryKey(String ID);
     
     List<TYs>  searchTYs(TYs record);
+    
+    byte[] getByteArrayOfTYs(String tablename, TYs record);
 }

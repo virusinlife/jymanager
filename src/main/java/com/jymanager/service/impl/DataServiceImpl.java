@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.jymanager.model.TYs;
 import com.jymanager.model.TYsExample;
+import com.jymanager.model.TableColumns;
+import com.jymanager.model.TableColumnsExample;
 import com.jymanager.model.TYsExample.Criteria;
 import com.jymanager.model.User;
 import com.jymanager.model.UserExample;
 import com.jymanager.service.DataService;
 import com.jymanager.dao.TYsMapper;
+import com.jymanager.dao.TableColumnsMapper;
 import com.jymanager.dao.UserMapper;
  
  
@@ -25,6 +28,10 @@ public class DataServiceImpl implements DataService{
     
     @Autowired
     private TYsMapper tysMapper;
+    
+    @Autowired
+    private TableColumnsMapper tableColumnsMapper;
+    
 	
     public List<User> getAllUsers() {
         // TODO Auto-generated method stub
@@ -87,5 +94,39 @@ public class DataServiceImpl implements DataService{
     	
     	return tysMapper.selectByExample(ex);
     }
+    
+    public byte[] getByteArrayOfTYs(String tablename, TYs record)
+    {
+
+   
+    	TableColumnsExample exp = new TableColumnsExample();
+    	TableColumnsExample.Criteria cri = exp.createCriteria();
+    	cri.andTableNameEqualTo(tablename);
+    	cri.andTableSchemaEqualTo("jymanager");
+    	
+    	List<TableColumns> cols = tableColumnsMapper.selectByExample(exp);
+    	List<TYs> list = searchTYs(record);  	
+    	
+    	String[] columns=  new String[3];
+    	int i = 0;
+    	for(TableColumns tc : cols)
+    	{
+    		columns[i++]=tc.getTitle();
+    	}
+    	
+    	String[][] datas = new String[list.size()][16];
+    	
+    	i=0;
+    	for(TYs ys : list)
+    	{
+    		int j=0;
+    		datas[i][j++]="";
+    		
+    		i++;
+    	}   	
+    	
+    	return null;
+    }
+    
     
 }
