@@ -12,6 +12,10 @@
 	<script type="text/javascript" src="js/easyui/jquery.min.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/tableExport/tableExport.js"></script>
+	<script type="text/javascript" src="js/tableExport/jquery.base64.js"></script>
+	
+	<script type="text/javascript" src="js/tablecsv/jquery.TableCSVExport.js"></script>
 	
 	<script type="text/javascript" src="js/components.js" charset="UTF-8"></script>
 </head>
@@ -329,6 +333,7 @@
     
     function ys_export()
     {
+    	/*
     	var datajson = {};
     	$("#tb input[id^='ys_query_']").each(function()
     	    	{
@@ -338,7 +343,7 @@
 
     	    		if(typeof(className) == 'undefined') return ;
 
-     	    		console.log(key.attr("id") + className);
+     	    		//console.log(key.attr("id") + className);
      	    		
      	    		var keyrealid = key.attr("id").replace("ys_query_","");
      	    		
@@ -355,8 +360,23 @@
     	   			}
     	    		//console.log(key+" end");    		
     	    	});
-    	ExportExcel('#yslist', 'exportTYs.do', datajson);
+    	//ExportExcel('#yslist', 'exportTYs.do', datajson);
+    	*/
+    	//$('#yslist').tableExport({type:'excel',consoleLog:'true', htmlContent:'true'});
     	
+    	/*
+    	$("#yslist").table2excel({
+			exclude: ".noExl",
+			name: "Excel Document Name",
+			filename: "myFileName",
+			fileext: ".xls",
+			exclude_img: true,
+			exclude_links: true,
+			exclude_inputs: true
+		});
+		*/
+		console.log($("#yslist").datagrid("getData"));
+    	JSONToCSVConvertor($("#yslist").datagrid("getData").rows, "", "");
     }
     
     </script>
