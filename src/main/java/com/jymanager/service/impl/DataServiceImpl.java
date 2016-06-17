@@ -17,7 +17,7 @@ import com.jymanager.service.DataService;
 import com.jymanager.dao.TYsMapper;
 import com.jymanager.dao.TableColumnsMapper;
 import com.jymanager.dao.UserMapper;
- 
+import java.lang.reflect.Field;  
  
 @Service
 public class DataServiceImpl implements DataService{
@@ -114,14 +114,25 @@ public class DataServiceImpl implements DataService{
     		columns[i++]=tc.getTitle();
     	}
     	
-    	String[][] datas = new String[list.size()][16];
+    	int rowcount = list.size();
+    	int colcount = cols.size();
+    	String[][] datas = new String[rowcount][colcount];
+    	
+    	Class<TYs> cls = TYs.class;  
+    	
+        Field[] fields = cls.getDeclaredFields();  
+
     	
     	i=0;
     	for(TYs ys : list)
     	{
     		int j=0;
     		datas[i][j++]="";
-    		
+            for(int i=0; i<fields.length; i++){  
+                Field f = fields[i];  
+                f.setAccessible(true);  
+                System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(ys));  
+            }   
     		i++;
     	}   	
     	

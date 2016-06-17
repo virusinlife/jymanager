@@ -18,6 +18,7 @@
 	<script type="text/javascript" src="js/tablecsv/jquery.TableCSVExport.js"></script>
 	
 	<script type="text/javascript" src="js/components.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/excelexport.js" charset="UTF-8"></script>
 </head>
 <body style="padding:0px 0px;">
 	
@@ -331,6 +332,9 @@
     	filter_list('#yslist', 'searchTYs.do', datajson);
     }
     
+    
+    
+
     function ys_export()
     {
     	/*
@@ -378,9 +382,7 @@
 		console.log($("#yslist").datagrid("getData"));
     	JSONToCSVConvertor($("#yslist").datagrid("getData").rows, "", "");
     }
-    
-    </script>
-    
+    	</script>
 </body>
 
 </html>
