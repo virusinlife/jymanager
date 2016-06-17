@@ -95,7 +95,7 @@ public class DataServiceImpl implements DataService{
     	return tysMapper.selectByExample(ex);
     }
     
-    public byte[] getByteArrayOfTYs(String tablename, TYs record)
+    public String[][] getDataArrayOfTYs(String tablename, TYs record)
     {
 
    
@@ -107,36 +107,51 @@ public class DataServiceImpl implements DataService{
     	List<TableColumns> cols = tableColumnsMapper.selectByExample(exp);
     	List<TYs> list = searchTYs(record);  	
     	
-    	String[] columns=  new String[3];
-    	int i = 0;
-    	for(TableColumns tc : cols)
-    	{
-    		columns[i++]=tc.getTitle();
-    	}
+
     	
     	int rowcount = list.size();
     	int colcount = cols.size();
-    	String[][] datas = new String[rowcount][colcount];
+    	String[][] datas = new String[rowcount + 1][colcount];
     	
     	Class<TYs> cls = TYs.class;  
+        
+        datas[0] =  new String[colcount];
+    	int i = 0;
+    	for(TableColumns tc : cols)
+    	{
+    		datas[0][i++]=tc.getTitle();
+    	}
+        
     	
-        Field[] fields = cls.getDeclaredFields();  
-
-    	
-    	i=0;
+    	i=1;
     	for(TYs ys : list)
     	{
-    		int j=0;
-    		datas[i][j++]="";
-            for(int i=0; i<fields.length; i++){  
-                Field f = fields[i];  
-                f.setAccessible(true);  
-                System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(ys));  
+    		
+    		datas[i]=new String[colcount];
+            for(int j=0; j<colcount; j++){  
+                try
+                {
+                	Field f = cls.getDeclaredField(cols.get(j).getField());  
+                	f.setAccessible(true);  
+
+					datas[i][j] = f.get(ys).toString();
+				} 
+                catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (NoSuchFieldException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }   
     		i++;
     	}   	
     	
-    	return null;
+    	return datas;
     }
     
     

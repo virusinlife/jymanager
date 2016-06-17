@@ -22,5 +22,5 @@ public interface DataService {
     
     List<TYs>  searchTYs(TYs record);
     
-    byte[] getByteArrayOfTYs(String tablename, TYs record);
+    String[][] getDataArrayOfTYs(String tablename, TYs record);
 }

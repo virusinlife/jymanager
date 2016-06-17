@@ -1,6 +1,7 @@
 package com.jymanager.utils;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;  
 import java.io.FileOutputStream;  
 import java.io.IOException;  
@@ -8,14 +9,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Iterator;  
   
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;  
 import org.apache.poi.hssf.usermodel.HSSFSheet;  
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;  
   
-import org.apache.poi.xssf.usermodel.XSSFCell;  
-import org.apache.poi.xssf.usermodel.XSSFRow;  
-import org.apache.poi.xssf.usermodel.XSSFSheet;  
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
   
 public class ReadWriteExcel 
 {  
@@ -59,33 +57,45 @@ public class ReadWriteExcel
   }  
   */
 	
-  public static OutputStream Data2XLSStream(String[] columns, String[][] datas) throws IOException  
+  public static void Data2XLSStream(String[][] datas, OutputStream  out) throws IOException  
   {  
   
-    String sheetName = "Export";// name of sheet  ssssssssssssssss
+    String sheetName = "Export";
   
     HSSFWorkbook wb = new HSSFWorkbook();  
     HSSFSheet sheet = wb.createSheet(sheetName);  
   
     // iterating r number of rows  
-    for (int r = 0; r < 5; r++)  
+    int rowindex = 0;
+    for (String[] rowarray : datas)  
     {  
-      HSSFRow row = sheet.createRow(r);  
+      HSSFRow row = sheet.createRow(rowindex++);  
   
       // iterating c number of columns  
-      for (int c = 0; c < 5; c++)  
+      short colindex = 0;
+      for (String value : rowarray)  
       {  
-        HSSFCell cell = row.createCell(c);  
-  
-        cell.setCellValue("Cell " + r + " " + c);  
+        HSSFCell cell = row.createCell(colindex++);
+//        cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+        cell.setCellValue(value);  
+        //cell.setCellValue("test"); 
       }  
     }  
   
-    ByteArrayOutputStream bufOut = new ByteArrayOutputStream();  
+    
+    FileOutputStream fileOut = new FileOutputStream("c:\\export.xls");
   
+    wb.write(fileOut);  
+    fileOut.flush();
+    fileOut.close();
+    
     // write this workbook to an Outputstream.  
-    wb.write(bufOut);  
-    bufOut.flush();  
+    wb.write(out);  
+    out.flush();
+//    wb.close();
+    
+
+	return;  
   }  
   
   /*
@@ -127,7 +137,7 @@ public class ReadWriteExcel
     }  
   
   }  
-  */
+  
   
   public static void Data2XLSXStream() throws IOException  
   {  
@@ -159,6 +169,6 @@ public class ReadWriteExcel
     wb.write(fileOut);  
     fileOut.flush();  
     fileOut.close();  
-  }  
+  }  */
   
 }  

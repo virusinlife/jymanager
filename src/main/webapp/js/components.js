@@ -145,10 +145,41 @@ function init_combobox_option(cb, optype, needAll, needEmpty)
 
 function ExportExcel(listname, action, datajson)
 {
-    $(listname).datagrid({  
+/*
+	$(listname).datagrid({  
         url:action,  
         queryParams:datajson
-    });  
+    });
+*/
+
+ 	var datas = $.ajax({  
+        url: action,  
+        type: "POST",  
+        data:datajson,
+        datatype: 'json',  
+        cache: false,  
+        error: function (XMLHttpRequest, textStatus, errorThrown) { alert("新增或更新记录失败！"); } ,
+ 		success: function(ret){
+ 			//console.log(ret);
+ 			//console.log((0 + ret[0]));
+ 			
+ 			
+ 			
+ 			//var fso = new ActiveXObject("Scripting.FileSystemObject");
+ 			//var f1 = fso.createtextfile("c:\\test.xls",true);
+ 			//f1.Write(ret);
+ 			
+ 		    var aLink = document.createElement('a');
+ 		    var evt = document.createEvent("HTMLEvents");
+ 		    evt.initEvent("click", false, false);
+ 		    aLink.download = "export.xls";
+ 		    aLink.href = "data:text/plain," + ret;
+ 		    //aLink.href = "http://localhost:8080/JYmanager/excel/export.xls";
+ 		    aLink.dispatchEvent(evt); 			
+ 		}
+ 	
+ 	});  
+	//console.log(datas);
 }
 
 

@@ -337,7 +337,7 @@
 
     function ys_export()
     {
-    	/*
+    	
     	var datajson = {};
     	$("#tb input[id^='ys_query_']").each(function()
     	    	{
@@ -364,8 +364,8 @@
     	   			}
     	    		//console.log(key+" end");    		
     	    	});
-    	//ExportExcel('#yslist', 'exportTYs.do', datajson);
-    	*/
+    	ExportExcel('#yslist', 'exportTYs.do', datajson);
+    	
     	//$('#yslist').tableExport({type:'excel',consoleLog:'true', htmlContent:'true'});
     	
     	/*
@@ -379,8 +379,9 @@
 			exclude_inputs: true
 		});
 		*/
-		console.log($("#yslist").datagrid("getData"));
-    	JSONToCSVConvertor($("#yslist").datagrid("getData").rows, "", "");
+		//console.log($("#yslist").datagrid("getData"));
+    	//JSONToCSVConvertor($("#yslist").datagrid("getData").rows, "", "");
+    	
     }
     	</script>
 </body>

@@ -1,23 +1,35 @@
 package com.jymanager.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jymanager.auth.Auth;
 import com.jymanager.model.TYs;
 import com.jymanager.model.User;
 import com.jymanager.service.DataService;
+import com.jymanager.utils.ReadWriteExcel;
 
 
 
@@ -95,24 +107,40 @@ public class DataController {
     
     
     @Auth
-    @RequestMapping(value = "exportTYs.do")  
+    @RequestMapping(value = "exportTYs.do",produces = "text/html;charset=UTF-8" )  
 	//public void  exportTYs(String[] columns,  TYs[] datas, HttpServletResponse res) throws Exception{
-    public void  exportTYs(TYs item , HttpServletResponse res) throws Exception{
-   	
-    	byte[] buf = dataService.getByteArrayOfTYs("t_ys", item);
-        
-        OutputStream os = res.getOutputStream();  
+    public void  exportTYs(TYs item, HttpServletResponse res) throws Exception{
+    	// 清空response  
+    	res.reset();  
         try {  
-            res.reset();  
-            res.setHeader("Content-Disposition", "attachment; filename=export.xlsx");  
-            res.setContentType("application/octet-stream; charset=utf-8");  
-            os.write(buf);  
-            os.flush();  
-        } finally {  
-            if (os != null) {  
-                os.close();  
-            }  
+        	String[][] buf = dataService.getDataArrayOfTYs("t_ys", item);
+            ServletOutputStream os = res.getOutputStream();
+        	ReadWriteExcel.Data2XLSStream(buf, os);
+        	// String excelFileName = "c:\\export.xls";// name of excel file 
+        	// path是指欲下载的文件的路径。  
+             // 以流的形式下载文件。  
+        	//InputStream fis = new BufferedInputStream(new FileInputStream(excelFileName));  
+        	// byte[] buffer = new byte[fis.available()];  
+        	// fis.read(buffer);  
+        	// fis.close();  
+          
+            // 设置response的Header  
+        	res.addHeader("Content-Disposition", "attachment;filename=export.xlsx"  );  
+        	//OutputStream toClient = new BufferedOutputStream(res.getOutputStream());  
+            res.setContentType("application/octet-stream;charset=UTF-8");  
+            //toClient.write(buffer);  
+            //toClient.flush();  
+            //toClient.close();  
+            
+            os.flush();
+            os.close();
+        } catch (IOException ex) {  
+            ex.printStackTrace();  
         }  
+        
+        
+        return;
+
 	}    
    
     
