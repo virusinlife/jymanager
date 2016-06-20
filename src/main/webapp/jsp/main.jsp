@@ -16,7 +16,8 @@
     <div data-options="region:'west',title:'功能栏',split:true" style="width:200px;">
 	    <div id="functree" class="easyui-accordion" style="width:100%;">
 		    <div title="预算管理">
-		    	<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="click_whf()" style="width:90px">预算管理</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="click_yskmgl()" style="width:90px">预算管理</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="click_yszxgl()" style="width:90px">预算管理</a>
 		    </div>
 		    <div title="外援管理">
 		    </div>
@@ -35,15 +36,25 @@
 
     <script type="text/javascript">
 	    
-		function click_whf(url)
+		function click_yskmgl()
 		{
 			var content = '<iframe scrolling="auto" frameborder="0"  src="ys_main_frames.do" style="width:100%;height:100%;"></iframe>';
 			$('#tt').tabs('add',{
-	            title: '维护费管理',
+	            title: '预算科目管理',
 	            content: content,
 	            closable: true
 	        });
 			
+		}
+		
+		function click_yszxgl()
+		{
+			var content = '<iframe scrolling="auto" frameborder="0"  src="ys_zxgl_frames.do" style="width:100%;height:100%;"></iframe>';
+			$('#tt').tabs('add',{
+	            title: '预算执行管理',
+	            content: content,
+	            closable: true
+	        });			
 		}
     
     </script>

@@ -107,37 +107,25 @@ public class DataController {
     
     
     @Auth
-    @RequestMapping(value = "exportTYs.do",produces = "text/html;charset=UTF-8" )  
+    @RequestMapping(value = "exportTYs.do")  
 	//public void  exportTYs(String[] columns,  TYs[] datas, HttpServletResponse res) throws Exception{
     public void  exportTYs(TYs item, HttpServletResponse res) throws Exception{
     	// 清空response  
     	res.reset();  
         try {  
         	String[][] buf = dataService.getDataArrayOfTYs("t_ys", item);
-            ServletOutputStream os = res.getOutputStream();
+        	res.setContentType("application/vnd.ms-excel");  
+        	res.setHeader("content-disposition", "attachment;filename=export.xls");  
+
+        	OutputStream os = res.getOutputStream();
         	ReadWriteExcel.Data2XLSStream(buf, os);
-        	// String excelFileName = "c:\\export.xls";// name of excel file 
-        	// path是指欲下载的文件的路径。  
-             // 以流的形式下载文件。  
-        	//InputStream fis = new BufferedInputStream(new FileInputStream(excelFileName));  
-        	// byte[] buffer = new byte[fis.available()];  
-        	// fis.read(buffer);  
-        	// fis.close();  
-          
-            // 设置response的Header  
-        	res.addHeader("Content-Disposition", "attachment;filename=export.xlsx"  );  
-        	//OutputStream toClient = new BufferedOutputStream(res.getOutputStream());  
-            res.setContentType("application/octet-stream;charset=UTF-8");  
-            //toClient.write(buffer);  
-            //toClient.flush();  
-            //toClient.close();  
             
             os.flush();
             os.close();
         } catch (IOException ex) {  
             ex.printStackTrace();  
         }  
-        
+//        
         
         return;
 

@@ -143,6 +143,20 @@ function init_combobox_option(cb, optype, needAll, needEmpty)
 	return true;
 }
 
+function parseParam(param, key){
+    var paramStr="";
+    if(param instanceof String||param instanceof Number||param instanceof Boolean){
+        paramStr+="&"+key+"="+encodeURIComponent(param);
+    }else{
+        $.each(param,function(i){
+            var k = key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
+            paramStr += '&' + parseParam(this, k);
+        });
+    }
+    return paramStr.substr(1);
+};
+
+
 function ExportExcel(listname, action, datajson)
 {
 /*
@@ -151,7 +165,7 @@ function ExportExcel(listname, action, datajson)
         queryParams:datajson
     });
 */
-
+    /*
  	var datas = $.ajax({  
         url: action,  
         type: "POST",  
@@ -161,7 +175,7 @@ function ExportExcel(listname, action, datajson)
         error: function (XMLHttpRequest, textStatus, errorThrown) { alert("新增或更新记录失败！"); } ,
  		success: function(ret){
  			//console.log(ret);
- 			//console.log((0 + ret[0]));
+ 			console.log(ret.length);
  			
  			
  			
@@ -173,12 +187,19 @@ function ExportExcel(listname, action, datajson)
  		    var evt = document.createEvent("HTMLEvents");
  		    evt.initEvent("click", false, false);
  		    aLink.download = "export.xls";
- 		    aLink.href = "data:text/plain," + ret;
+ 		    //aLink.href = "data:text/plain," + decodeURI(ret);
+ 		   aLink.href = "data:text/plain;base64," + (ret);
  		    //aLink.href = "http://localhost:8080/JYmanager/excel/export.xls";
  		    aLink.dispatchEvent(evt); 			
  		}
  	
  	});  
+ 	*/
+	
+	var url = action + "?" + parseParam(datajson);
+	window.location.href=url;
+	
+	
 	//console.log(datas);
 }
 

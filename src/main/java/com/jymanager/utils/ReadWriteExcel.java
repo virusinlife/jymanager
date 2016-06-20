@@ -7,8 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;  
 import java.io.InputStream;  
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.Iterator;  
   
+import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;  
 import org.apache.poi.hssf.usermodel.HSSFSheet;  
@@ -76,23 +78,37 @@ public class ReadWriteExcel
       for (String value : rowarray)  
       {  
         HSSFCell cell = row.createCell(colindex++);
-//        cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+        //cell.setEncoding(HSSFCell.ENCODING_UTF_16);
         cell.setCellValue(value);  
         //cell.setCellValue("test"); 
       }  
     }  
   
     
-    FileOutputStream fileOut = new FileOutputStream("c:\\export.xls");
+    //FileOutputStream fileOut = new FileOutputStream("c:\\export.xls");
   
-    wb.write(fileOut);  
-    fileOut.flush();
-    fileOut.close();
     
+    //wb.write(fileOut);  
+    //fileOut.flush();
+    //fileOut.close();
+    
+    //FileInputStream fileIn = new FileInputStream("c:\\test.txt");
+    
+    //byte[] buf = new byte[fileIn.available()];
+    //fileIn.read(buf); 
+
+    
+    //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    //wb.write(baos);
+    
+    //byte[] buf =  Base64.encodeBase64(baos.toByteArray());
+    
+    //out.write(buf);
     // write this workbook to an Outputstream.  
+    
     wb.write(out);  
     out.flush();
-//    wb.close();
+    wb.close();
     
 
 	return;  
